@@ -1,0 +1,74 @@
+//equal operator
+db.movies.find({movie_name: {$eq: "Hellraiser: Bloodline"}})
+{ "_id" : ObjectId("619d22b639063135b0438015"), "id" : 2, "movie_name" : "Hellraiser: Bloodline", "movie_genre" : "Action|Horror|Sci-Fi", "production_year" : 2012, "budget" : 16752 }
+
+//not equal operator
+db.movies.find({movie_name: {$eq: "Hellraiser: Bloodline"}})
+
+
+// Greater than operator
+ db.movies.find({budget: {$gt: 10000}}).pretty()
+{
+	"_id" : ObjectId("619d22b639063135b0438014"),
+	"id" : 1,
+	"movie_name" : "Hour of the Furnaces, The (Hora de los hornos, La)",
+	"movie_genre" : "Documentary|War",
+	"production_year" : 2016,
+	"budget" : 11067
+}
+{
+	"_id" : ObjectId("619d22b639063135b0438015"),
+	"id" : 2,
+	"movie_name" : "Hellraiser: Bloodline",
+	"movie_genre" : "Action|Horror|Sci-Fi",
+	"production_year" : 2012,
+	"budget" : 16752
+}
+{
+	"_id" : ObjectId("619d22b639063135b0438016"),
+	"id" : 3,
+	"movie_name" : "Nowhere Boy",
+	"movie_genre" : "Drama",
+	"production_year" : 2017,
+	"budget" : 16062
+}
+
+
+//Greater than equal operator
+
+db.movies.find({budget: {$gte: 14030}})
+
+// less than operator
+db.movies.find({budget: {$lt: 10000}}).pretty()
+
+
+// less than equal operator
+db.movies.find({budget: {$lte: 11000}}).pretty()
+
+
+//AND operator
+ db.movies.find({$and: [{production_year: {$gt: 2000}}, {budget: {$gt: 10000}}]}).pretty()
+
+
+//OR operator
+db.movies.find({$or: [{production_year: {$gt: 2000}}, {budget: {$gt: 10000}}]}).pretty()
+
+
+//NOR operator
+db.movies.find({$nor: [{production_year: {$gt: 2000}}, {budget: {$gt: 10000}}]}).pretty()
+
+
+
+db.movies.find({$and: [{production_year: {$ne: 2000}}, {budget: {$ne: 10000}}]}).pretty()
+
+
+ db.movies.find({$and: [{production_year: {$gte: 2000}}, {production_year: {$lte: 2010}}]}).pretty()
+
+//sort of the year but year is same then sort with movie name
+db.movies.find().sort({production_year:1, movie_name:1}).pretty()
+
+//skip and print only 5
+db.movies.find({}).skip(10).limit(5).pretty()
+
+
+> db.movies.find({},{"movie_genre":0}).limit(10).pretty()
